@@ -1,0 +1,50 @@
+services:
+  # Base de datos MySQL
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-secret}
+      MYSQL_USER: ${MYSQL_USER:-gestion}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-gestion_pass}
+      MYSQL_DATABASE: gestion_vehiculos
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "3308:3306" # Recomendado: quitar en producción para no exponer la DB
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$MYSQL_ROOT_PASSWORD\" || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Mail catch-all (MailHog)
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+  # Aplicación Spring Boot (construida por el Dockerfile en la raíz)
+  app:
+    build: .
+    environment:
+      # Configuración de conexión a la BD (apunta al servicio `db` dentro del compose)
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/gestion_vehiculos?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      # Use a non-root DB user created by the container (recommended)
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER:-gestion}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD:-gestion_pass}
+      # Secreto JWT (reemplazar por uno seguro)
+      JWT_SECRET: ${JWT_SECRET:-changeme}
+      # Configuración de mail para usar MailHog
+      SPRING_MAIL_HOST: mailhog
+      SPRING_MAIL_PORT: 1025
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+      mailhog:
+        condition: service_started        
+    
+volumes:
+  db-data:

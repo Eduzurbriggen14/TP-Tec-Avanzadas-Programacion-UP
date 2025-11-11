@@ -2,7 +2,7 @@
 
 ## 📋 Descripción del Sistema
 
-Sistema implementado para gestionar turnos de revisión vehicular anual con sistema de puntuación de 8 ítems.
+Sistema implementado para gestionar turnos de revisión vehicular anual con sistema de puntuación de 8 items.
 
 ## 🔧 Funcionalidades Implementadas
 
@@ -140,61 +140,62 @@ Authorization: Bearer {token}
 
 ### Cálculo Automático
 
-1. **Puntaje Total**: Suma de las 8 puntuaciones (máximo 80 puntos). Además, el sistema calcula el puntaje porcentual respecto al máximo posible (0–100%) para determinar el estado.
+1. **Puntaje Total**: Suma de las 8 puntuaciones (máximo 80 puntos). El sistema calcula además el puntaje porcentual respecto al máximo posible (0–100%) y usa ese porcentaje para determinar el estado.
 
 2. **Estado del Resultado**:
-   - El estado se determina en base al puntaje porcentual (puntaje_total / puntaje_máximo * 100) con estas reglas:
-     - **SEGURO**: porcentaje >= 80% y ningún ítem < 5.
-     - **CONDICIONADO**: porcentaje >= 40% y < 80%.
-     - **RECHEQUEAR**: porcentaje < 40%.
-   - **Regla de override**: si algún ítem tiene puntuación < 5, el resultado será **RECHEQUEAR** aunque el porcentaje total sea alto.
+  - El estado se determina en base al puntaje porcentual (puntaje_total / puntaje_máximo * 100):
+    - **SEGURO**: porcentaje >= 80% y ningún ítem < 5.
+    - **CONDICIONADO**: porcentaje >= 40% y < 80%.
+    - **RECHEQUEAR**: porcentaje < 40%.
+  - **Regla de override**: si algún ítem tiene puntuación < 5, el resultado será **RECHEQUEAR** aunque el porcentaje total sea alto.
 
-3. **Observaciones obligatorias**:
-  - Si el puntaje porcentual es < 40%, el campo `observaciones` es obligatorio.
-  - Debe indicar los problemas encontrados.
+3. **Observaciones Obligatorias**:
+  - Si el puntaje porcentual es < 40%, el campo `observaciones` es obligatorio
+  - Debe indicar los problemas encontrados
 
 ### Ejemplos de Escenarios
 
 #### ✅ Vehículo SEGURO
-- Total: 80 puntos (todos los ítems ≥ 5).
-- Porcentaje: 80/80 = 100% → Estado: SEGURO.
-- Observaciones: Opcionales.
+- Total: 80 puntos (todos los items ≥ 5)
+- Estado: SEGURO
+- Observaciones: Opcionales
 
-#### ⚠️ Vehículo RECHEQUEAR (por puntaje bajo)
-- Ejemplo: Total: 30 puntos → 30/80 = 37.5% → Estado: RECHEQUEAR. Observaciones: **OBLIGATORIAS** (debe detallar los problemas).
-- Nota: en el ejemplo anterior con 35 puntos (35/80 = 43.75%) el estado sería **CONDICIONADO**, no RECHEQUEAR, porque se usan porcentajes relativos al máximo.
+#### ⚠️ Vehículo CONDICIONADO (por puntaje relativo)
+- Ejemplo: Total: 37 puntos → 37/80 = 46.25% → Estado: CONDICIONADO
+- Observaciones: No obligatorias (a menos que el porcentaje sea < 40%)
 
-#### ⚠️ Vehículo RECHEQUEAR (por ítem crítico)
-- Total: 72 puntos → 72/80 = 90% (porcentaje alto)
-- Frenos: 4 puntos (< 5) → Regla de override: Estado = RECHEQUEAR.
-- Observaciones: Recomendadas (detallar problema de frenos).
+#### ⚠️ Vehículo RECHEQUEAR (por item crítico)
+- Total: 72 puntos
+- Frenos: 4 puntos (< 5)
+- Estado: RECHEQUEAR
+- Observaciones: Recomendadas (detallar problema de frenos)
 
 ---
 
 ## 🔐 Permisos por Rol
 
 ### ADMIN
-- ✅ Todos los endpoints.
-- ✅ Ver todos los turnos.
-- ✅ Ver todas las revisiones.
-- ✅ Eliminar revisiones.
+- ✅ Todos los endpoints
+- ✅ Ver todos los turnos
+- ✅ Ver todas las revisiones
+- ✅ Eliminar revisiones
 
 ### MANTENIMIENTO
-- ✅ Crear revisiones.
-- ✅ Ver sus propias revisiones.
-- ✅ Ver todos los turnos.
-- ✅ Ver todas las revisiones.
+- ✅ Crear revisiones
+- ✅ Ver sus propias revisiones
+- ✅ Ver todos los turnos
+- ✅ Ver todas las revisiones
 
 ### ADMINISTRATIVO
-- ✅ Solicitar turnos.
-- ✅ Confirmar/cancelar turnos.
-- ✅ Ver turnos por patente.
-- ✅ Ver revisiones por patente.
+- ✅ Solicitar turnos
+- ✅ Confirmar/cancelar turnos
+- ✅ Ver turnos por patente
+- ✅ Ver revisiones por patente
 
-### Cualquier usuario autenticado
-- ✅ Solicitar turnos.
-- ✅ Ver turnos disponibles.
-- ✅ Ver sus propios turnos.
+### Cualquier Usuario Autenticado
+- ✅ Solicitar turnos
+- ✅ Ver turnos disponibles
+- ✅ Ver sus propios turnos
 
 ---
 
@@ -217,7 +218,7 @@ Authorization: Bearer {token}
   ]
 }
 ```
-**Resultado**: SEGURO (80 puntos)
+**Resultado**: SEGURO (80 puntos — 100%)
 
 ### Test 2: Vehículo Rechazado por Puntaje Bajo
 ```json
@@ -237,7 +238,7 @@ Authorization: Bearer {token}
   "observaciones": "RECHEQUEAR: Neumáticos lisos críticos, suspensión deficiente, dirección con holgura. Requiere reparación urgente."
 }
 ```
-**Resultado**: RECHEQUEAR (37 puntos) - Observaciones obligatorias incluidas
+**Resultado**: CONDICIONADO (37 puntos — 46.25%) - Observaciones no obligatorias incluidas
 
 ### Test 3: Vehículo Rechazado por Item Crítico
 ```json
@@ -257,30 +258,30 @@ Authorization: Bearer {token}
   "observaciones": "A pesar del buen estado general, los frenos requieren atención inmediata"
 }
 ```
-**Resultado**: RECHEQUEAR (68 puntos) - Por item crítico < 5
+**Resultado**: RECHEQUEAR (68 puntos — 85% — Por item crítico < 5)
 
 ---
 
 ## 🚀 Flujo Completo de Uso
 
-1. **Usuario solicita turno** con su patente.
-2. **Sistema muestra turnos disponibles** para selección.
-3. **Usuario confirma** el turno seleccionado.
+1. **Usuario solicita turno** con su patente
+2. **Sistema muestra turnos disponibles** para selección
+3. **Usuario confirma** el turno seleccionado
 4. **Personal de mantenimiento realiza la revisión**:
-  - Completa los 8 ítems de chequeo.
-  - El sistema calcula automáticamente el puntaje.
-  - El sistema determina SEGURO o RECHEQUEAR.
-  - Si requiere rechequeo y puntaje < 40, valida observaciones.
-5. **El turno se marca como REALIZADO**.
-6. **El usuario puede consultar** el resultado por patente.
+   - Completa los 8 items de chequeo
+  - El sistema calcula automáticamente el puntaje y el porcentaje
+  - El sistema determina SEGURO, CONDICIONADO o RECHEQUEAR según el porcentaje
+  - Si requiere rechequeo y el puntaje porcentual es < 40%, valida observaciones
+5. **El turno se marca como REALIZADO**
+6. **El usuario puede consultar** el resultado por patente
 
 ---
 
 ## 📝 Notas Importantes
 
--- Los 8 ítems de chequeo son **obligatorios**.
--- Cada ítem debe puntuarse de **1 a 10**.
--- Si el puntaje total es **< 40**, las observaciones son **obligatorias**.
--- Un turno confirmado se marca automáticamente como **REALIZADO** al crear la revisión.
--- Las revisiones están vinculadas opcionalmente a un turno.
--- Solo usuarios con rol **INSPECTOR** o **ADMIN** pueden crear revisiones.
+- Los 8 items de chequeo son **obligatorios**
+- Cada item debe puntuarse de **1 a 10**
+-- Si el puntaje porcentual es **< 40%**, las observaciones son **obligatorias**
+- Un turno confirmado se marca automáticamente como **REALIZADO** al crear la revisión
+- Las revisiones están vinculadas opcionalmente a un turno
+- Solo usuarios con rol **INSPECTOR** o **ADMIN** pueden crear revisiones

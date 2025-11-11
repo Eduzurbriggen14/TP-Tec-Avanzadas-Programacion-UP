@@ -76,7 +76,3 @@ Thumbs.db
 .env
 .env.local
 
-# Ignorar temporalmente los archivos de Docker
-Dockerfile
-docker-compose.yml
-.dockerignore
