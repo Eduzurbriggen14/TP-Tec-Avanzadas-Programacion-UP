@@ -1,0 +1,27 @@
+package com.example.gestionvehiculos.dto;
+
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class ItemChequeoDTO {
+    
+    @NotBlank(message = "El nombre del ítem es obligatorio")
+    private String nombreItem;
+    
+    @NotNull(message = "La puntuación es obligatoria")
+    @Min(value = 1, message = "La puntuación mínima es 1")
+    @Max(value = 10, message = "La puntuación máxima es 10")
+    private Integer puntuacion;
+    
+    private String observaciones;
+}
