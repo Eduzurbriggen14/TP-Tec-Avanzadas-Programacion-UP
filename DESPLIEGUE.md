@@ -196,12 +196,3 @@ curl -H "Authorization: Bearer $TOKEN" "http://localhost:8080/api/turnos/disponi
 ```bash
 mvn test
 ```
-
-## Próximos pasos (opcional, puedo generarlos):
-- `.env.example` y `Dockerfile` + `docker-compose.yml` completos.
-- `systemd` unit y GitHub Actions workflow completados.
-- Test unitario de `TurnoServiceImpl.obtenerSlotsConEstado`.
-
----
-
-Si querés, genero ahora los archivos auxiliares (`.env.example`, `Dockerfile`, `docker-compose.yml` y un workflow GitHub Actions). Dime cuáles querés que cree automáticamente y los añado al repo.
