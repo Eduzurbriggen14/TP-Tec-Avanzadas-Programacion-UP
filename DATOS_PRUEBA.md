@@ -493,8 +493,7 @@ A continuación hay un lote de ejemplo para agregar más registros a la base de 
   {"fechaTurno":"2025-11-17","horaTurno":"12:00:00","observaciones":"Chequeo rapido","clienteId":10,"vehiculoId":12},
   {"fechaTurno":"2025-11-12","horaTurno":"09:00:00","observaciones":"Revision completa","clienteId":11,"vehiculoId":13},
   {"fechaTurno":"2025-10-05","horaTurno":"10:00:00","observaciones":"Revision completa","clienteId":12,"vehiculoId":14},
-  {"fechaTurno":"2025-10-22","horaTurno":"11:00:00","observaciones":"Revision completa","clienteId":13,"vehiculoId":16},
-  {"fechaTurno":"2025-10-23","horaTurno":"12:00:00","observaciones":"Revision completa","clienteId":14,"vehiculoId":15},
+  {"fechaTurno":"2025-10-22","horaTurno":"11:00:00","observaciones":"Revision completa","clienteId":13,"vehiculoId":11},
   {"fechaTurno":"2025-12-30","horaTurno":"09:00:00","observaciones":"Turno programado","clienteId":7,"vehiculoId":4},
   {"fechaTurno":"2025-12-12","horaTurno":"10:00:00","observaciones":"Turno programado","clienteId":8,"vehiculoId":6},
   {"fechaTurno":"2025-12-12","horaTurno":"11:00:00","observaciones":"Turno programado","clienteId":9,"vehiculoId":7},
@@ -502,14 +501,6 @@ A continuación hay un lote de ejemplo para agregar más registros a la base de 
 ]
 ```
 
-### Revisiones (ejemplos)
-```json
-[
-  {"patente":"AAA111","turnoId":1,"resumen":"Frenos OK","itemsChequeo":[{"nombreItem":"FRENOS","puntuacion":9,"observaciones":""}]},
-  {"patente":"BBB222","turnoId":2,"resumen":"Necesita rechequeo","itemsChequeo":[{"nombreItem":"FRENOS","puntuacion":3,"observaciones":"Pastillas gastadas"}],"observaciones":"RECHEQUEAR"},
-  {"patente":"CCC333","turnoId":3,"resumen":"Aprobado","itemsChequeo":[{"nombreItem":"LUCES","puntuacion":8,"observaciones":""}]}
-]
-```
 
 ### Cómo usar el template de items
 
@@ -525,6 +516,7 @@ Respuesta: array con objetos {"nombreItem": "LUCES", "puntuacion": null, "observ
 
 
 ---
+### Revisiones
 ### Revisiones extras
 ```json
 {
