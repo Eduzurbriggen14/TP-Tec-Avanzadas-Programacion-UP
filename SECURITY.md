@@ -142,32 +142,6 @@ curl -X GET http://localhost:8080/api/vehiculos \
 
 **Respuesta esperada:** HTTP 401 Unauthorized
 
-### Probar con Token Válido
-
-```bash
-# Primero hacer login
-TOKEN=$(curl -X POST http://localhost:8080/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"userName":"admin","password":"admin123"}' \
-  | jq -r '.token')
-
-# Usar el token
-curl -X GET http://localhost:8080/api/vehiculos \
-  -H "Authorization: Bearer $TOKEN"
-```
-
-**Respuesta esperada:** HTTP 200 OK con datos
-
-### Probar Permisos por Rol
-
-```bash
-# Usuario INSPECTOR intentando gestionar alquileres
-curl -X GET http://localhost:8080/api/alquileres \
-  -H "Authorization: Bearer $TOKEN_INSPECTOR"
-```
-
-**Respuesta esperada:** HTTP 403 Forbidden
-
 ## 📝 Configuración
 
 ### application.properties
