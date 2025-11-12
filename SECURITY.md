@@ -22,7 +22,7 @@ El sistema implementa autenticación **JWT (JSON Web Tokens)** con **Spring Secu
 - ✅ Crear y gestionar **revisiones de vehículos**
 - ✅ Crear y gestionar **mantenimientos**
 - ✅ Ver **vehículos** (solo lectura)
-- ❌ No puede gestionar clientes ni alquileres
+- ❌ No puede gestionar clientes
 - ❌ No puede gestionar usuarios
 
 ## 🔑 Flujo de Autenticación

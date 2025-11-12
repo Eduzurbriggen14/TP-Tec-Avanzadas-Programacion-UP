@@ -4,7 +4,81 @@
 
 Sistema implementado para gestionar turnos de revisión vehicular anual con sistema de puntuación de 8 items.
 
-## 🔧 Funcionalidades Implementadas
+### Requisitos Previos
+
+Asegúrate de tener instalado lo siguiente:
+- **Java 17**: El proyecto está construido con la versión 17 de Java.
+- **Maven 3.6+**: Para la gestión de dependencias y el build del proyecto.
+- **Docker y Docker Compose**: **(Recomendado)** Para levantar todo el entorno (aplicación + base de datos) con un solo comando.
+- **MySQL 8.0**: Necesario si decides ejecutar la aplicación de forma manual sin Docker.
+
+### Ejecución Local
+
+#### Opción 1: Usando Docker Compose (Recomendado)
+
+Esta es la forma más sencilla y rápida de poner en marcha el proyecto, ya que gestiona la aplicación, la base de datos MySQL y MailHog (para pruebas de email) automáticamente.
+
+1.  **Clona el repositorio:**
+    ```bash
+    git clone https://github.com/Eduzurbriggen14/TP-Tec-Avanzadas-Programacion-UP.git
+    cd TP-Tec-Avanzadas-Programacion-UP
+    ```
+
+2.  **Levanta los servicios:**
+    Desde la raíz del proyecto, ejecuta:
+    ```bash
+    docker-compose up --build -d
+    ```
+    *   `--build` reconstruye la imagen de tu aplicación si has hecho cambios.
+    *   `-d` ejecuta los contenedores en segundo plano.
+
+3.  **¡Listo!** La aplicación estará disponible en `http://localhost:8080`.
+    - La base de datos MySQL es accesible en el puerto `3308` desde tu máquina (host).
+    - La interfaz de MailHog para ver los correos enviados está en `http://localhost:8025`.
+
+#### Opción 2: Ejecución Manual con Maven
+
+Si prefieres no usar Docker, puedes ejecutar la aplicación directamente con Maven.
+
+1.  **Clona el repositorio** (si aún no lo has hecho).
+
+2.  **Configura la base de datos:**
+    - Asegúrate de tener una instancia de MySQL corriendo.
+    - Crea una base de datos llamada `gestion_vehiculos`.
+
+3.  **Configura las propiedades de la aplicación:**
+    Abre el archivo `src/main/resources/application.properties` y ajusta las siguientes líneas con tus credenciales de MySQL:
+    ```properties
+    spring.datasource.url=jdbc:mysql://localhost:3306/gestion_vehiculos
+    spring.datasource.username=tu_usuario_mysql
+    spring.datasource.password=tu_contraseña_mysql
+    ```
+
+4.  **Ejecuta la aplicación:**
+    Desde la raíz del proyecto, corre el siguiente comando en tu terminal:
+    ```bash
+    mvn spring-boot:run
+    ```
+
+5.  La aplicación se iniciará y estará escuchando en `http://localhost:8080`.
+
+## �️ Tecnologías y Dependencias Principales
+
+Este proyecto está construido sobre el ecosistema de Spring Boot y utiliza las siguientes dependencias clave:
+
+-   **Spring Boot**: Framework principal para el desarrollo de la aplicación.
+    -   `spring-boot-starter-web`: Para construir APIs RESTful.
+    -   `spring-boot-starter-data-jpa`: Para la persistencia de datos con Hibernate.
+    -   `spring-boot-starter-security`: Para la gestión de autenticación y autorización.
+    -   `spring-boot-starter-validation`: Para las validaciones de los datos de entrada.
+    -   `spring-boot-starter-mail`: Para el envío de correos electrónicos.
+-   **MySQL Connector**: Driver JDBC para la conexión con la base de datos MySQL.
+-   **Lombok**: Para reducir el código repetitivo (getters, setters, constructores).
+-   **JWT (Java JWT)**: Para la creación y validación de JSON Web Tokens para la autenticación.
+-   **MapStruct**: Para el mapeo automático y eficiente entre DTOs y entidades.
+-   **SpringDoc OpenAPI**: Para la generación automática de la documentación de la API (Swagger UI), disponible en `/swagger-ui.html`.
+
+## �🔧 Funcionalidades Implementadas
 
 ### 1. Gestión de Turnos
 
