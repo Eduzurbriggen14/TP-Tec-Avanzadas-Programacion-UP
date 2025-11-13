@@ -17,7 +17,7 @@ public class TurnoResponseDTO {
     
     private Long id;
     private Long vehiculoId;
-    private String patente; // Denormalizado para facilitar lectura
+    private String patente;
     private String marcaModelo; // Marca + Modelo del vehículo
     private Long clienteId;
     private String clienteNombre; // Nombre completo del cliente que solicitó

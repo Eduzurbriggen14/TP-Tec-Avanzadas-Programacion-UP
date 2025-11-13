@@ -75,11 +75,8 @@ public class SecurityConfig {
                         // Endpoints de alquileres - ADMIN y ADMINISTRATIVO
                         .requestMatchers("/api/alquileres/**").hasAnyRole("ADMIN", "ADMINISTRATIVO")
                         
-                        // Endpoints de revisiones - MANTENIMIENTO, ADMIN y INSPECTOR
+                        // Endpoints de revisiones - ADMIN y INSPECTOR
                         .requestMatchers("/api/revisiones/**").hasAnyRole("ADMIN", "INSPECTOR")
-                        
-                        // Endpoints de mantenimientos - MANTENIMIENTO y ADMIN
-                        .requestMatchers("/api/mantenimientos/**").hasAnyRole("ADMIN")
                         
                         // Cualquier otra petición requiere autenticación
                         .anyRequest().authenticated()

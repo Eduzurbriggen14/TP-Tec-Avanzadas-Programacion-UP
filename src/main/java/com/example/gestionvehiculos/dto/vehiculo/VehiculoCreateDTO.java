@@ -31,6 +31,5 @@ public class VehiculoCreateDTO {
     @NotNull(message = "El clienteId es obligatorio")
     private Long clienteId;
     
-    // estadoMantenimiento se establece como DISPONIBLE por defecto en el servicio
-    // fechaAlta se establece automáticamente en el servicio
+
 }

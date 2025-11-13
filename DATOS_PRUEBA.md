@@ -558,3 +558,41 @@ Respuesta: array con objetos {"nombreItem": "LUCES", "puntuacion": null, "observ
 ```
 ---
 
+```json
+{
+  "patente": "EEE555",
+  "turnoId": 12,
+  "resumen": "Prueba - estado RE-CHEQUEAR",
+  "itemsChequeo": [
+    {"nombreItem":"LUCES","puntuacion":9,"observaciones":""},
+    {"nombreItem":"FRENOS","puntuacion":9,"observaciones":""},
+    {"nombreItem":"DIRECCION","puntuacion":8,"observaciones":""},
+    {"nombreItem":"SUSPENSION","puntuacion":8,"observaciones":""},
+    {"nombreItem":"NEUMATICOS","puntuacion":8,"observaciones":""},
+    {"nombreItem":"MOTOR","puntuacion":9,"observaciones":""},
+    {"nombreItem":"ESCAPE","puntuacion":9,"observaciones":""},
+    {"nombreItem":"CHASIS","puntuacion":1,"observaciones":"Nro de chasis no coincide con la documentacion"}
+  ],
+  "observaciones": "Nro de chasis no coincide con la documentacion"
+}
+```
+
+```json
+{
+  "patente": "MNO345",
+  "turnoId": 5,
+  "resumen": "Prueba - revision aprobada",
+  "itemsChequeo": [
+    {"nombreItem":"LUCES","puntuacion":9,"observaciones":""},
+    {"nombreItem":"FRENOS","puntuacion":9,"observaciones":""},
+    {"nombreItem":"DIRECCION","puntuacion":8,"observaciones":""},
+    {"nombreItem":"SUSPENSION","puntuacion":8,"observaciones":""},
+    {"nombreItem":"NEUMATICOS","puntuacion":8,"observaciones":""},
+    {"nombreItem":"MOTOR","puntuacion":9,"observaciones":""},
+    {"nombreItem":"ESCAPE","puntuacion":9,"observaciones":""},
+    {"nombreItem":"CHASIS","puntuacion":9,"observaciones":""}
+  ],
+  "observaciones": "Todo OK"
+}
+```
+

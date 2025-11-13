@@ -18,6 +18,8 @@ import com.example.gestionvehiculos.service.RevisionVehiculoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Map;
+import java.util.HashMap;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -75,7 +77,7 @@ public class RevisionVehiculoServiceImpl implements RevisionVehiculoService {
                 List<ItemChequeoTemplate> templates = templateRepository.findAllByOrderByOrdenAsc();
 
                 // Mapear DTOs por nombre (normalizando) para sobreescribir defaults
-                java.util.Map<String, ItemChequeoDTO> dtoMap = new java.util.HashMap<>();
+                Map<String, ItemChequeoDTO> dtoMap = new HashMap<>();
                 if (dtoItems != null) {
                         for (ItemChequeoDTO d : dtoItems) {
                                 if (d != null && d.getNombreItem() != null) {
@@ -86,7 +88,7 @@ public class RevisionVehiculoServiceImpl implements RevisionVehiculoService {
 
                 items = new java.util.ArrayList<>();
                 // Para cada item del template, crear el ItemChequeo usando valores del DTO si existen,
-                // o defaults en caso contrario (no penalizar: puntuacion=10 y observacion por defecto).
+                // o defaults en caso contrario
                 for (ItemChequeoTemplate t : templates) {
                         String key = t.getNombreItem().trim().toUpperCase();
                         ItemChequeoDTO provided = dtoMap.get(key);

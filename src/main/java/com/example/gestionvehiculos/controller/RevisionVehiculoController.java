@@ -55,7 +55,7 @@ public class RevisionVehiculoController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'MANTENIMIENTO', 'INSPECTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'INSPECTOR')")
     @Operation(summary = "Obtener todas las revisiones")
     public ResponseEntity<List<RevisionResponseDTO>> obtenerTodos() {
         List<RevisionResponseDTO> revisiones = revisionService.obtenerTodos();
@@ -70,7 +70,7 @@ public class RevisionVehiculoController {
     }
 
     @GetMapping("/rango-fechas")
-    @PreAuthorize("hasAnyRole('ADMIN', 'MANTENIMIENTO', 'INSPECTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'INSPECTOR')")
     @Operation(summary = "Obtener revisiones por rango de fechas")
     public ResponseEntity<List<RevisionResponseDTO>> obtenerPorRangoFechas(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,

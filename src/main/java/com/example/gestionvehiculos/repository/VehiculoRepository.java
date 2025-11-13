@@ -11,9 +11,7 @@ import java.util.Optional;
 public interface VehiculoRepository extends JpaRepository<Vehiculo, Long> {
     
     Optional<Vehiculo> findByPatente(String patente);
-    
-    // findByEstadoMantenimiento removed: estadoMantenimiento no forma parte del API
-    
+        
     List<Vehiculo> findByTipoVehiculo(TipoVehiculo tipo);
     
     List<Vehiculo> findByMarca(String marca);

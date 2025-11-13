@@ -68,6 +68,4 @@ public class VehiculoController {
         List<VehiculoDTO> vehiculos = vehiculoService.obtenerPorTipo(tipo);
         return ResponseEntity.ok(vehiculos);
     }
-
-    // El endpoint para filtrar por estado y cambiar estado se removió: el sistema no usa estados de alquiler
 }
